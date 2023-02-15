@@ -9,7 +9,6 @@ import { ProgressEvent } from './types/version-bump-progress'
  */
 export async function updateFiles(operation: Operation): Promise<Operation> {
   const { files } = operation.options
-  console.log(files);
   for (const relPath of files) {
     const modified = await updateFile(relPath, operation)
 
