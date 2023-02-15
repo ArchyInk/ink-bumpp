@@ -37,6 +37,7 @@ export async function main(): Promise<void> {
 }
 
 function progress({ event, script, updatedFiles, skippedFiles, newVersion }: VersionBumpProgress): void {
+  console.log(event);
   switch (event) {
     case ProgressEvent.FileUpdated:
       console.log(success, `Updated ${updatedFiles.pop()} to ${newVersion}`)
