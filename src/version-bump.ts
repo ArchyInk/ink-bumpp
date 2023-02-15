@@ -48,6 +48,7 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   const operation = await Operation.start(arg)
 
   // Get the old and new version numbers
+  console.log(operation);
   await getOldVersion(operation)
   await getNewVersion(operation)
 
