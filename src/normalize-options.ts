@@ -1,8 +1,8 @@
 import fg from 'fast-glob'
+import { readPackageSync } from 'read-pkg'
 import type { ReleaseType } from './release-type'
 import { isReleaseType } from './release-type'
 import type { VersionBumpOptions } from './types/version-bump-options'
-import { readPackageSync } from 'read-pkg'
 
 interface Interface {
   input?: NodeJS.ReadableStream | NodeJS.ReadStream | false
@@ -72,21 +72,27 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
   const cwd = raw.cwd || process.cwd()
   const ignoreScripts = Boolean(raw.ignoreScripts)
   const execute = raw.execute
+  const pkgName = readPackageSync().name
 
   let release: Release
-  if (!raw.release || raw.release === 'prompt') release = { type: 'prompt', preid }
-  else if (isReleaseType(raw.release)) release = { type: raw.release, preid }
+  if (!raw.release || raw.release === 'prompt')
+    release = { type: 'prompt', preid }
+  else if (isReleaseType(raw.release))
+    release = { type: raw.release, preid }
   else release = { type: 'version', version: raw.release }
 
   let tag
-  if (typeof raw.tag === 'string') tag = { name: raw.tag }
-  else if (raw.tag) tag = { name: 'v' }
+  if (typeof raw.tag === 'string')
+    tag = { name: raw.tag }
+  else if (raw.tag)
+    tag = { name: 'v' }
 
   // NOTE: This must come AFTER `tag` and `push`, because it relies on them
   let commit
-  if (typeof raw.commit === 'string') commit = { all, noVerify, message: raw.commit }
+  if (typeof raw.commit === 'string')
+    commit = { all, noVerify, message: raw.commit }
   else if (raw.commit || tag || push)
-    commit = { all, noVerify, message: `🚧 chore(${readPackageSync().name}): release v` }
+    commit = { all, noVerify, message: `🚧 chore(${pkgName}): release ${pkgName}@v` }
 
   const files = await fg(raw.files?.length ? raw.files : ['package.json', 'package-lock.json'], {
     cwd,
@@ -96,15 +102,19 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
   let ui: Interface
   if (raw.interface === false) {
     ui = { input: false, output: false }
-  } else if (raw.interface === true || !raw.interface) {
+  }
+  else if (raw.interface === true || !raw.interface) {
     ui = { input: process.stdin, output: process.stdout }
-  } else {
+  }
+  else {
     // eslint-disable-next-line prefer-const
     let { input, output, ...other } = raw.interface
 
-    if (input === true || (input !== false && !input)) input = process.stdin
+    if (input === true || (input !== false && !input))
+      input = process.stdin
 
-    if (output === true || (output !== false && !output)) output = process.stdout
+    if (output === true || (output !== false && !output))
+      output = process.stdout
 
     ui = { input, output, ...other }
   }
