@@ -19,6 +19,7 @@ export async function main(): Promise<void> {
 
     // Parse the command-line arguments
     const { help, version, quiet, options } = parseArgs()
+    console.log(options);
 
     if (help) {
       process.exit(ExitCode.Success)
@@ -28,7 +29,6 @@ export async function main(): Promise<void> {
       process.exit(ExitCode.Success)
     } else {
       if (!quiet) options.progress = progress
-      console.log(options);
       await versionBump(options)
     }
   } catch (error) {
