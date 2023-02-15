@@ -19,7 +19,7 @@ export async function main(): Promise<void> {
 
     // Parse the command-line arguments
     const { help, version, quiet, options } = parseArgs()
-    console.log(options.files);
+    console.log(options.files)
 
     if (help) {
       process.exit(ExitCode.Success)
@@ -37,7 +37,7 @@ export async function main(): Promise<void> {
 }
 
 function progress({ event, script, updatedFiles, skippedFiles, newVersion }: VersionBumpProgress): void {
-  console.log(event);
+  console.log(event)
   switch (event) {
     case ProgressEvent.FileUpdated:
       console.log(success, `Updated ${updatedFiles.pop()} to ${newVersion}`)

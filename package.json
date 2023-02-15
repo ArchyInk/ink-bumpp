@@ -1,6 +1,6 @@
 {
   "name": "ink-bumpp",
-  "version": "8.2.18",
+  "version": "8.2.19",
   "packageManager": "pnpm@7.2.1",
   "description": "Bump version, commit message changes",
   "author": {
