@@ -12,10 +12,10 @@ import { ProgressEvent } from './types/version-bump-progress'
 export async function runNpmScript(script: NpmScript, operation: Operation): Promise<Operation> {
   const { cwd, ignoreScripts } = operation.options
   if (!ignoreScripts) {
-    console.log(1);
     const { data: manifest } = await readJsonFile('package.json', cwd)
-
+    
     if (isManifest(manifest) && hasScript(manifest, script)) {
+      console.log(1);
       await ezSpawn.async('npm', ['run', script, '--silent'], { stdio: 'inherit' })
       operation.update({ event: ProgressEvent.NpmScript, script })
     }
