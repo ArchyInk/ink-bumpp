@@ -10,3 +10,4 @@ Forked from [`bumpp`](https://github.com/antfu/bumpp)
 
 - Change commit message to `🚧 chore(${readPackageSync().name}): release v`
 - Change default tag to `${readPackageSync()}@${version}`
+- Add a new command `prerun` to execute command just like `pnpm run test` before committing,Commands with `--` or `-` are not supported for now

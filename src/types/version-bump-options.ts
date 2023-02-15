@@ -114,7 +114,7 @@ export interface VersionBumpOptions {
   /**
    * Excute additional command after bumping and before commiting
    */
-  execute?: string
+  execute?: string[]
 }
 
 /**

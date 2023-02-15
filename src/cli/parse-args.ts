@@ -35,8 +35,8 @@ export function parseArgs(): ParsedArgs {
       .option('--ignore-scripts', 'Ignore scripts', { default: false })
       .option('-q, --quiet', 'Quiet mode')
       .option('-v, --version <version>', 'Tagert version')
-      .option('-x, --execute <command>', 'Commands to execute after version bumps')
       .help()
+      .command('prerun [...commands]', 'Commands to execute after version bumps')
 
     const result = cli.parse()
     const args = result.options
@@ -53,9 +53,9 @@ export function parseArgs(): ParsedArgs {
         all: args.all,
         confirm: !args.yes,
         noVerify: !args.verify,
-        files: [...args['--'] || [], ...result.args],
+        files: [...(args['--'] || []), ...result.args],
         ignoreScripts: args.ignoreScripts,
-        execute: args.execute,
+        execute: result.args.length > 0 && (result.args as string[]),
       },
     }
 
@@ -70,8 +70,7 @@ export function parseArgs(): ParsedArgs {
     }
 
     return parsedArgs
-  }
-  catch (error) {
+  } catch (error) {
     // There was an error parsing the command-line args
     return errorHandler(error as Error)
   }
