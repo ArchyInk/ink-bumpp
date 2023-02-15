@@ -55,7 +55,7 @@ export function parseArgs(): ParsedArgs {
         noVerify: !args.verify,
         files: [...(args['--'] || []), ...result.args],
         ignoreScripts: args.ignoreScripts,
-        execute: result.args.length > 0 && (result.args as string[]),
+        execute: result.args.length > 0 ? (result.args as string[]) : undefined,
       },
     }
 
