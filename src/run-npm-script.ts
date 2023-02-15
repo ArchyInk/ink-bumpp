@@ -13,7 +13,7 @@ export async function runNpmScript(script: NpmScript, operation: Operation): Pro
   const { cwd, ignoreScripts } = operation.options
   if (!ignoreScripts) {
     const { data: manifest } = await readJsonFile('package.json', cwd)
-    console.log(isManifest(manifest));
+    console.log(hasScript(manifest, script));
     if (isManifest(manifest) && hasScript(manifest, script)) {
       await ezSpawn.async('npm', ['run', script, '--silent'], { stdio: 'inherit' })
       operation.update({ event: ProgressEvent.NpmScript, script })
