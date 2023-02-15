@@ -28,7 +28,7 @@ export async function main(): Promise<void> {
       process.exit(ExitCode.Success)
     } else {
       if (!quiet) options.progress = progress
-
+      console.log(options);
       await versionBump(options)
     }
   } catch (error) {
