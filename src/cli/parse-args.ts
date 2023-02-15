@@ -59,7 +59,6 @@ export function parseArgs(): ParsedArgs {
       },
     }
 
-
     // If a version number or release type was specified, then it will mistakenly be added to the "files" array
     if (parsedArgs.options.files && parsedArgs.options.files.length > 0) {
       const firstArg = parsedArgs.options.files[0]

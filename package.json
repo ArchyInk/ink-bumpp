@@ -54,8 +54,7 @@
     "upgrade": "npm-check -u && npm audit fix",
     "bumpp": "esno src/cli/run.ts --tag --push --all",
     "prepublishOnly": "npm run clean && npm run build",
-    "release": "npm run bumpp prerun git version && npm publish",
-    "release:t": "npm run bumpp && npm publish"
+    "release": "npm run bumpp && npm publish"
   },
   "dependencies": {
     "@jsdevtools/ez-spawn": "^3.0.4",

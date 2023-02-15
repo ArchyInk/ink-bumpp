@@ -69,7 +69,6 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   await runNpmScript(NpmScript.PreVersion, operation)
 
   // Update the version number in all files
-  console.log(operation);
   await updateFiles(operation)
 
   if (operation.options.execute) {

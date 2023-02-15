@@ -19,25 +19,27 @@ export async function main(): Promise<void> {
 
     // Parse the command-line arguments
     const { help, version, quiet, options } = parseArgs()
-    console.log(options.files)
 
     if (help) {
       process.exit(ExitCode.Success)
-    } else if (version) {
+    }
+    else if (version) {
       // Show the version number and exit
       console.log(packageVersion)
       process.exit(ExitCode.Success)
-    } else {
-      if (!quiet) options.progress = progress
+    }
+    else {
+      if (!quiet)
+        options.progress = progress
       await versionBump(options)
     }
-  } catch (error) {
+  }
+  catch (error) {
     errorHandler(error as Error)
   }
 }
 
 function progress({ event, script, updatedFiles, skippedFiles, newVersion }: VersionBumpProgress): void {
-  console.log(event)
   switch (event) {
     case ProgressEvent.FileUpdated:
       console.log(success, `Updated ${updatedFiles.pop()} to ${newVersion}`)
@@ -68,7 +70,8 @@ function progress({ event, script, updatedFiles, skippedFiles, newVersion }: Ver
 function errorHandler(error: Error): void {
   let message = error.message || String(error)
 
-  if (process.env.DEBUG || process.env.NODE_ENV === 'development') message = error.stack || message
+  if (process.env.DEBUG || process.env.NODE_ENV === 'development')
+    message = error.stack || message
 
   console.error(message)
   process.exit(ExitCode.FatalError)
