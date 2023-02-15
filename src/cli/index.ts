@@ -19,7 +19,7 @@ export async function main(): Promise<void> {
 
     // Parse the command-line arguments
     const { help, version, quiet, options } = parseArgs()
-    console.log(options);
+    console.log(options.files);
 
     if (help) {
       process.exit(ExitCode.Success)
