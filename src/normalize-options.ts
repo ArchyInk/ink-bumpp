@@ -85,14 +85,14 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
   if (typeof raw.tag === 'string')
     tag = { name: raw.tag }
   else if (raw.tag)
-    tag = { name: 'v' }
+    tag = { name: `${pkgName}@` }
 
   // NOTE: This must come AFTER `tag` and `push`, because it relies on them
   let commit
   if (typeof raw.commit === 'string')
     commit = { all, noVerify, message: raw.commit }
   else if (raw.commit || tag || push)
-    commit = { all, noVerify, message: `🚧 chore(${pkgName}): release ${pkgName}@v` }
+    commit = { all, noVerify, message: `🚧 chore(${pkgName}): release v` }
 
   const files = await fg(raw.files?.length ? raw.files : ['package.json', 'package-lock.json'], {
     cwd,
