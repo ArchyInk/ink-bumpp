@@ -70,7 +70,8 @@ export function parseArgs(): ParsedArgs {
     }
 
     return parsedArgs
-  } catch (error) {
+  }
+  catch (error) {
     // There was an error parsing the command-line args
     return errorHandler(error as Error)
   }
